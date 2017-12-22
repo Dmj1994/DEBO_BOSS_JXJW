@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        .ibox-content {
+            padding: 5px
+        }
+
+        .float-e-margins .btn {
+            margin-bottom: 0px
+        }
+
+        .table {
+            margin-bottom: 0px
+        }
+
+        .tdSelected {
+            background-color: yellowgreen;
+            color: white;
+            font-weight: bold;
+        }
+
+    </style>
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <!--搜索栏-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <button class="btn btn-primary " type="button" onclick="addAdvice()"><i class="fa fa-plus"></i>新增话术
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>话术标题</h5>
+                </div>
+                <div class="ibox-content" style="min-height: 500px">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="search_keys"><span class="input-group-btn">
+                        <button type="button" class="btn " onclick="loadAdivces()">搜索关键词</button></span>
+                        <input type="hidden" id="page">
+                    </div>
+                    <div style="margin-top: 10px;border:#b9baba dashed 1px;" id="advices_body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>话术内容</h5>
+
+                </div>
+                <div class="ibox-content" style="min-height: 500px">
+                    <div id="div_ad_content" style="padding:20px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<!-- 自定义js -->
+<script src="../res/js/content.js?v=1.0.0"></script>
+<script src="../res/js/plugins/layer/layer.js" charset="utf-8"></script>
+
+
+<script src="../res/js/plugins/bigautocomplete/jquery.bigautocomplete.js" charset="utf-8"></script>
+<script src="../res/js/jquery.form.js" charset="utf-8"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(function () {
+        loadAdivces("");
+    });
+
+    var addWindow;
+    function addAdvice() {
+        addWindow = layer.open({
+            title: "添加新话术",
+            type: 2,
+            content: 'advice_add.jsp',
+            maxmin: true
+        });
+        layer.full(addWindow);
+    }
+
+    function closeAdd() {
+        layer.close(addWindow);
+    }
+
+
+    function loadAdivces() {
+        var keys = $("#search_keys").val();
+        var page = $("#page").val();
+        $.ajax({
+            url: "../boss/advice/searchAdvice",
+            data: {"keyWords": keys, "page": page},
+            type: "post",
+            success: function (da) {
+                $("#advices_body").html(da);
+                bindEffect();
+            }
+        });
+    }
+
+
+    function bindEffect() {
+        $(".dataRow").mouseover(function () {
+            $(this).css("cursor", "pointer")
+        });
+        $(".dataRow").click(function () {
+            $(".dataRow td").removeClass("tdSelected");
+            $(this).find("td").addClass("tdSelected");
+            $("#div_ad_content").html($(this).attr("adContent"));
+        });
+    }
+
+</script>
+
+
+</body>
+
+</html>

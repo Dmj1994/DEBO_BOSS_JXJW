@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="../res/js/plugins/layui/css/layui.css" media="all">
+
+    <link rel="stylesheet" type="text/css" href="../res/css/plugins/markdown/bootstrap-markdown.min.css"/>
+
+    <style>
+        .layui-form-pane .layui-form-label {
+            width: 90px
+        }
+
+        .layui-input-block {
+            margin-left: 100px;
+        }
+
+        .wizard > .content {
+            overflow: auto;
+            min-height: 420px;
+        }
+
+        #preProcution {
+            background-color: white
+        }
+
+        .wizard > .content > .body {
+            padding: 1%
+        }
+
+        .tabs-container .panel-body {
+            padding: 0px
+        }
+
+
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">学员基本信息</a>
+                    </li>
+                    <li class="" onclick="loadCommunicationHistory()"><a data-toggle="tab" href="#tab-2"
+                                                                         aria-expanded="false"> 回访记录</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade in active">
+                        <div class="panel-body" id="tab_student_basic">
+
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane fade">
+                        <div class="panel-body" id="tab_student_communication_history" style="padding:10px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/jquery.form.js?v=2.1.4"></script>
+<script src="../res/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../res/js/plugins/validate/jquery.validate.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="../res/js/content.js?v=1.0.0"></script>
+
+<script src="../res/js/plugins/layui/layui.js" charset="utf-8"></script>
+<script src="../res/js/common/area.js" charset="utf-8"></script>
+
+<!-- Steps -->
+<script src="../res/js/plugins/staps/jquery.steps.min.js"></script>
+<script>
+
+    $(function () {
+        loadBaisc();
+    });
+
+    function loadBaisc() {
+        var studentId = getQueryString("studentId");
+        if (!studentId) {
+            alert("参数丢失");
+            return;
+        }
+
+        $.ajax({
+            url: "../boss/crm/loadStudentBasic",
+            dataType: "html",
+            data: {"studentId": studentId, "isStatic": "yes"},
+            success: function (da) {
+                showOrRemoveLoading("tab_student_basic", "remove");
+                $("#tab_student_basic").html(da);
+            },
+            beforeSend: function () {
+                showOrRemoveLoading("tab_student_basic", "show");
+            }
+        });
+    }
+
+    function loadCommunicationHistory(studentId) {
+        //判断对应区域有没有已经加载，如果已经加载，不再重复加载
+        if ($.trim($("#tab_student_communication_history").html()) != '')
+            return;
+        var studentId = getQueryString("studentId");
+        $.ajax({
+            url: "../boss/crm/loadCommunicationHistory",
+            dataType: "html",
+            data: {"studentId": studentId,"isStatic": "yes"},
+            success: function (da) {
+                showOrRemoveLoading("tab_student_communication_history", "remove");
+                $("#tab_student_communication_history").html(da);
+            },
+            beforeSend: function () {
+                showOrRemoveLoading("tab_student_communication_history", "show");
+            }
+        });
+    }
+
+
+
+</script>
+
+</body>
+</html>

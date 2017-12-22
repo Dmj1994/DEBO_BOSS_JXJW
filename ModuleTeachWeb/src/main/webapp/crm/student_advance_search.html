@@ -1,0 +1,401 @@
+<form class="layui-form" id="search_form" action="../boss/crm/studentSearch" method="post">
+    <input type="hidden" name="dataColor" id="dataColor">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">信息提供者</label>
+            <div class="layui-input-inline">
+                <select name="infoProvider" id="infoProvider">
+                    <option value="未知">未知</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">首咨方式</label>
+            <div class="layui-input-inline">
+                <select name="firstConsultWay" id="firstConsultWay">
+                    <option value="未知">未知</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">渠道来源</label>
+            <div class="layui-input-inline">
+                <select name="infoSource" id="infoSource">
+                    <option value="未知">未知</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-inline">
+            <label class="layui-form-label">媒体名称</label>
+            <div class="layui-input-inline">
+                <input name="mediaCode" type="hidden" id="mediaCode"/>
+                <button class="layui-btn layui-btn-info layui-btn-small" title="来源" id="btn-add-source"><i
+                        class="layui-icon">&#xe654;</i></button>
+                <input type="text" class="layui-input" placeholder="百度竞价，360等"
+                       style="width: 150px;display:inline" readonly id="mediaName">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="stuName" class="layui-input" placeholder="必填">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">自身专业</label>
+            <div class="layui-input-inline">
+                <select name="majar" id="majar">
+                    <option value="未知">未知</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">学员电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" class="layui-input" placeholder="请注意格式">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">咨询师</label>
+            <div class="layui-input-inline">
+                <select name="phoneConsult" id="phoneConsult">
+                    <option value="">未知</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="ct_break">
+        <div class="layui-inline">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-inline">
+                <input type="text" name="stuAge" class="layui-input"
+                       placeholder="只能是数字">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">关键词</label>
+            <div class="layui-input-inline">
+                <input type="text" name="keyInfo" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">学员性别</label>
+            <div class="layui-input-inline">
+                <select name="gender">
+                    <option value="">请选择</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                    <option value="未知">未知</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">学员学历</label>
+            <div class="layui-input-inline">
+                <select name="stuEducation" id="stuEducation">
+                    <option value="">未知</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">工作状态</label>
+            <div class="layui-input-inline">
+                <select name="workStatus" id="workStatus">
+                    <option value="">未知</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">咨询方向</label>
+            <div class="layui-input-inline">
+                <select name="studyCource" id="studyCource">
+                    <option value="">未知</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">邀约上门</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="isInvite" value="是" title="是">
+                <input type="radio" name="isInvite" value="否" title="否">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label" title="是否介绍北大青鸟">是否介绍</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="isIntroduceBdqn" value="是" title="是">
+                <input type="radio" name="isIntroduceBdqn" value="否" title="否">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">学员Q Q</label>
+            <div class="layui-input-inline">
+                <input type="text" name="qq" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">学员微信</label>
+            <div class="layui-input-inline">
+                <input type="text" name="wechat" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">学员地域</label>
+        <div class="layui-input-inline">
+            <select name="province" lay-filter="province" id="province">
+                <option value="">请选择省</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="city" id="city" lay-filter="city">
+                <option value="">请选择市</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="district" id="district">
+                <option value="">请选择县/区</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">咨询日期</label>
+            <div class="layui-input-inline">
+                <input type="text" name="consultDate" class="layui-input" id="consultDate">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">去电时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="callTime" class="layui-input" id="callDate">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">分量时间</label>
+            <div class="layui-input-block">
+                从 <input type="text" name="assignStart" class="layui-input" id="assignStart"
+                         style="width:100px;display: inline">日
+                到 <input type="text" class="layui-input" name="assignEnd" id="assignEnd"
+                         style="width:100px;display: inline">范围之内的数据
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户类型</label>
+        <div class="layui-input-block">
+            <input name="clientType" id="clientType" type="hidden">
+            <input type="checkbox" name="a" lay-skin="primary" title="A" value="A">
+            <input type="checkbox" name="a" lay-skin="primary" title="B" value="B">
+            <input type="checkbox" name="a" lay-skin="primary" title="C" value="C">
+            <input type="checkbox" name="a" lay-skin="primary" title="D" value="D">
+            <input type="checkbox" name="a" lay-skin="primary" title="G" value="G">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">数据颜色</label>
+            <div class="layui-input-block">
+                <a class="row_color  color_a " title="已报名" colorValue="#4FD192"></a>
+                <a class="row_color  color_b " title="上门未定机" colorValue="#9496DC"></a>
+                <a class="row_color  color_c " title="定机量" colorValue="#F3B001"></a>
+                <a class="row_color  color_d " title="A量里的重点量" colorValue="#FD98CF"></a>
+                <a class="row_color  color_empty " style="border:#ff0000 solid 1px" title="去除颜色条件" colorValue=""></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <a class="layui-btn" id="search_btn">立即搜索</a>
+            <button type="reset" class="layui-btn layui-btn-primary" id="reset_btn">重置</button>
+        </div>
+    </div>
+
+    </div>
+</form>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form()
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+
+        $("#search_btn").click(function () {
+            var postData = $("#jqGrid").jqGrid('getGridParam', 'postData');
+            var params = $('#search_form').serializeJSON();
+
+            var clientTypes = "";
+            $("input[name='a']").each(function(){
+                if(this.checked)
+                        clientTypes+=this.value+"!";
+            });
+            console.log("clientTypes"+clientTypes);
+            params.clientType=clientTypes;
+            $.extend(postData, params);
+            postData = $.extend(postData, {"pageSingle": ""});
+            $("#jqGrid").jqGrid('setGridParam', {
+                postData: postData //发送数据
+            }).trigger("reloadGrid", [{page: 1}]); //重新载入
+            $("#myModal").modal("hide");
+        });
+
+        form.on('select(province)', function (data) {
+            loadAreas(2, data.value.split("_")[0], "city", "");
+            form.render('select');
+        });
+
+        form.on('select(city)', function (data) {
+            loadAreas(3, data.value.split("_")[0], "district", "");
+            form.render('select');
+        });
+
+
+        document.getElementById('consultDate').onclick = function () {
+            shortDateSeting.elem = this;
+            laydate(shortDateSeting);
+        };
+
+
+        document.getElementById('callDate').onclick = function () {
+            longDateSeting.elem = this;
+            laydate(longDateSeting);
+        };
+
+        document.getElementById('assignStart').onclick = function () {
+            shortDateSeting.elem = this;
+            laydate(shortDateSeting);
+        };
+        document.getElementById('assignEnd').onclick = function () {
+            shortDateSeting.elem = this;
+            laydate(shortDateSeting);
+        };
+
+        $(".row_color").click(function () {
+            $(".row_color").animate({"border-radius": "0"}, "fast");
+            $(this).animate({"border-radius": "50%"});
+            $("#dataColor").val($(this).attr("colorValue"));
+
+        });
+        $("#btn-add-source").click(addSource);
+        $("#reset_btn").click(function () {
+            $("#mediaCode").val("");
+        });
+    });
+
+    function addSource() {
+        $.ajax({
+            url: "/boss/source/loadAll",
+            success: function (da) {
+                var index = layer.open({
+                    type: 1,
+                    content: da, //这里content是一个普通的String
+                    area: ['610px', '550px'],
+                    btn: ['确定'],
+                    yes: function () {
+                        var name = $("#choosedTxt").text();
+                        $("#mediaName").val(name);
+                        var mediaCode = $("#choosedTxt").attr("mediaCode");
+                        $("#mediaCode").val(mediaCode);
+                        layer.close(index);
+                    }
+                });
+            }
+        });
+        return false;
+    }
+
+
+    function loadAreas(level, parentCode, selectId, defautName) {
+        var selectOptions = "<option value=''>请选择</option>";
+        $(areas).each(function () {
+            if (level == 1 && this.level == 1) {
+                if (this.name == defautName)
+                    selectOptions += "<option value='" + this.code + "_" + this.name + "' selected>" + this.name + "</option>";
+                else
+                    selectOptions += "<option value='" + this.code + "_" + this.name + "' >" + this.name + "</option>";
+            } else if (level == 2 && this.level == 2 && this.sheng == parentCode.substring(0, 2) && this.xian == "00") {
+                if (this.name == defautName)
+                    selectOptions += "<option value='" + this.code + "_" + this.name + "' selected>" + this.name + "</option>";
+                else
+                    selectOptions += "<option value='" + this.code + "_" + this.name + "' >" + this.name + "</option>";
+            } else if (level == 3 && this.level == 3 && this.di == parentCode.substring(2, 4) && this.sheng == parentCode.substring(0, 2)) {
+                if (this.name == defautName)
+                    selectOptions += "<option value='" + this.code + "_" + this.name + "' selected>" + this.name + "</option>";
+                else
+                    selectOptions += "<option value='" + this.code + "_" + this.name + "' >" + this.name + "</option>";
+            }
+        });
+        $("#" + selectId).html(selectOptions);
+    }
+
+
+    loadAreas(1, '', "province", "");
+    loadAreas(2, '', "city", "");
+    loadAreas(3, '', "district", "");
+
+    loadSelect("education", "stuEducation");
+    loadSelect("workstatus", "workStatus");
+    loadSelect("studycource", "studyCource");
+    loadSelect("infoprovider", "infoProvider");
+    loadSelect("fisrtconsultway", "firstConsultWay");
+    loadSelect("infosource", "infoSource");
+    loadSelect("majar", "majar");
+    loadPhoneConsult();
+
+    function loadPhoneConsult() {
+        $.ajax({
+            url: "../boss/crm/loadPhoneConsultByRole",
+            dataType: "json",
+            success: function (da) {
+                var ops = '<option value="">请选择</option>';
+                $(da.data).each(function () {
+                    ops += '<option value="' + this.uuid + '">' + this.userName + '</option>';
+                });
+                $("#phoneConsult").html(ops);
+                layui.use(['form', 'layedit', 'laydate'], function () {
+                    layui.form().render('select');
+                });
+            }
+        });
+    }
+</script>

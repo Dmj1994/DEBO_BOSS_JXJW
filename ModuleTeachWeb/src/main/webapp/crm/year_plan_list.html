@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap.css?0820" rel="stylesheet">
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap-ui.css?0820" rel="stylesheet">
+
+
+    <link href="../res/js/plugins/layer/skin/default/layer.css?0820" rel="stylesheet" media="all">
+
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .ibox-content {
+            padding: 5px
+        }
+
+        .float-e-margins .btn {
+            margin-bottom: 0px
+        }
+    </style>
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    <!--搜索栏-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <button class="btn btn-success " type="button" onClick="addYearPlan()"><i class="fa fa-plus"></i>&nbsp;<span
+                            class="bold">添加新年度计划</span></button>
+                    <button class="btn btn-success " type="button" onClick="yearPlanWBS()"><i class="fa fa-plus"></i>&nbsp;<span
+                            class="bold">年度计划分解</span></button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table id="jqGrid"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- jqGrid -->
+<script src="../res/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
+<script src="../res/js/plugins/jqGrid2/js/jquery.jqGrid.min.js?0820"></script>
+
+<!-- layer -->
+<script src="../res/js/plugins/layer/layer.js?0820"></script>
+
+<!-- 自定义js -->
+<script src="../res/js/content.js?v=1.0.0"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+        $("#jqGrid").jqGrid({
+            url: '../boss/crm/year_plan_list',
+            datatype: "json",
+            jsonReader: {
+                root: "data.rows",
+                total: "data.total",
+                records: "data.records"
+            },
+            colModel: [
+                {label: '业务年度', name: 'planYear'},
+                {label: '预计咨询量', name: 'planConsultNumber'},
+                {label: '实际咨询量', name: 'actualConsultNumber'},
+                {label: '计划招生量', name: 'planRecuitNumber'},
+                {label: '实际招生量', name: 'actualRecuitNumber'},
+                {label: '备注', name: 'remark'}
+            ],
+            viewrecords: true, // show the current page, data rang and total records on the toolbar
+            height: 400,
+            rowNum: 10,
+            autowidth: true,
+            pager: "#jqGridPager"
+
+        });
+        $(window).resize(function () {
+            $("#jqGrid").setGridWidth($(".ibox-content").width());
+        });
+    });
+
+
+    var addWindow;
+    function addYearPlan() {
+        addWindow = layer.open({
+            title: "添加新年度计划",
+            type: 2,
+            content: 'year_plan_add.html',
+            maxmin: true
+        });
+        layer.full(addWindow);
+    }
+
+    function yearPlanWBS() {
+        addWindow = layer.open({
+            title: "年度任务分解",
+            type: 2,
+            content: 'year_plan_wbs.html',
+            maxmin: true
+        });
+        layer.full(addWindow);
+    }
+
+    function closeAdd() {
+        layer.close(addWindow);
+        $("#jqGrid").trigger("reloadGrid");
+    }
+
+
+    function fmtDate(cellvalue, options, rowObject) {
+        if (cellvalue && cellvalue.length > 10)
+            return cellvalue.substring(0, 10);
+        else
+            return "";
+    }
+
+    function goPage(pageNo) {
+        var postData = $("#jqGrid").jqGrid('getGridParam', 'postData');
+        var params = {"pageSingle": ""};
+        var _postData = $.extend(postData, params);
+        $("#jqGrid").jqGrid('setGridParam', {
+            postData: _postData, //发送数据,
+            page: pageNo
+        }).trigger("reloadGrid"); //重新载入
+    }
+</script>
+
+</body>
+</html>

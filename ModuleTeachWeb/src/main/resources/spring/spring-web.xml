@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--扫描web相关的controller-->
+    <context:component-scan base-package="top.kriss.teach.controller"/>
+    <context:component-scan base-package="top.kriss.base.controller"/>
+    <context:component-scan base-package="top.kriss.base.swagger"/>
+
+    <context:component-scan base-package="top.kriss.base.advice" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+
+    <!-- 启动对@AspectJ注解的支持 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!--简化配置:
+    	1、自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
+    	2、提供一系列:数据绑定,数字和日期的format,@NumberFormat,@DataTimeFormat,xml,json默认读写支持
+    -->
+    <!--简化配置:
+       1、自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
+       2、提供一系列:数据绑定,数字和日期的format,@NumberFormat,@DataTimeFormat,xml,json默认读写支持
+   -->
+
+
+    <!-- 开启aop，对类代理 -->
+    <aop:config proxy-target-class="true"></aop:config>
+
+    <mvc:annotation-driven>
+        <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <!-- 将Jackson2HttpMessageConverter的默认格式化输出为false -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--静态资源默认servlet配置
+    	1、加入对静态资源的处理:js,css,gif,png
+    	2、允许使用"/"做整体映射
+    -->
+    <mvc:default-servlet-handler/>
+
+    <mvc:resources mapping="/res/**" location="/res/"/>
+
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**"
+                   location="classpath:/META-INF/resources/webjars/"/>
+
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+
+    <!--配置JSP　显示ViewResolver-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/boss/**"/>
+            <bean class="top.kriss.base.Interceptors.AuthInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+-->
+
+    <!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10485760"/>
+    </bean>
+
+
+    <bean class="top.kriss.base.web.exception.GlobalExceptionResolver"></bean>
+    <!--
+        <bean name="SwaggerConfig" class="top.kriss.base.swagger.SwaggerConfig"/>
+    -->
+
+    <bean id="websocket" class="top.kriss.base.websocket.WebSocketConfig"/>
+    <bean id="webSocketMSGHandler" class="top.kriss.base.websocket.WebSocketMSGHandler"/>
+
+    <!--自定义日期转换器-->
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
+    <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+    <!--<property name="converters">-->
+    <!--<set>-->
+    <!--&lt;!&ndash; 日期转换器 &ndash;&gt;-->
+    <!--<ref bean="customDateConverter"/>-->
+    <!--</set>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+
+</beans>

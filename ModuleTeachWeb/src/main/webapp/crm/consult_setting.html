@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap.css?0820" rel="stylesheet">
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap-ui.css?0820" rel="stylesheet">
+
+
+    <link href="../res/js/plugins/layer/skin/default/layer.css?0820" rel="stylesheet" media="all">
+
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .ibox-content {
+            padding: 5px
+        }
+
+        .float-e-margins .btn {
+            margin-bottom: 0px
+        }
+
+        .form-control, .single-line {
+            padding: 0px
+        }
+    </style>
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!--搜索栏-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    您可以在这里对咨询师的私库上限和捞量上限进行设定
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table id="jqGrid"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- jqGrid -->
+<script src="../res/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
+<script src="../res/js/plugins/jqGrid2/js/jquery.jqGrid.min.js?0820"></script>
+
+<!-- layer -->
+<script src="../res/js/plugins/layer/layer.js?0820"></script>
+
+<!-- 自定义js -->
+<script src="../res/js/content.js?v=1.0.0"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+        $("#jqGrid").jqGrid({
+            url: '../boss/crm/allConsults',
+            datatype: "json",
+            jsonReader: {
+                root: "data.rows",
+                total: "data.total",
+                records: "data.records"
+            },
+            colModel: [
+                {name: 'uuid', hidden: true, editable: true},
+                {label: '姓名', name: 'userName'},
+                {label: '所在部门', name: 'organizationNames'},
+                {label: '职位', name: 'jobTitle'},
+                {label: '私库上限', name: 'privateLimit', editable: true},
+                {label: '捞量上限', name: 'gaintLimit', editable: true}
+            ],
+            viewrecords: true,
+            height: 400,
+            rowNum: 10,
+            autowidth: true,
+            onSelectRow: editRow,
+            pager: "#jqGridPager"
+        });
+        $(window).resize(function () {
+            $("#jqGrid").setGridWidth($(".ibox-content").width());
+        });
+    });
+
+    var lastSelection;
+    function editRow(id) {
+        if (id && id !== lastSelection) {
+            saveRows(lastSelection);
+            var grid = $("#jqGrid");
+            // grid.jqGrid('restoreRow',lastSelection);
+            grid.jqGrid('restoreRow', lastSelection);
+            var rowData = grid.jqGrid("getRowData", id);
+            editparameters = {
+                "keys": true,
+                "oneditfunc": null,
+                "successfunc": null,
+                "url": "../boss/crm/updateConsultSet",
+                "errorfunc": null,
+                "afterrestorefunc": null,
+                "restoreAfterError": true,
+                "mtype": "POST"
+            };
+            grid.jqGrid('editRow', id, editparameters);
+            lastSelection = id;
+        }
+    }
+
+
+    function saveRows(rowid) {
+        var grid = $("#jqGrid");
+        grid.jqGrid('saveRow', rowid);
+    }
+
+
+</script>
+
+</body>
+</html>

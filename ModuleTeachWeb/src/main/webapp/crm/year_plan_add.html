@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>添加年度计划</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link rel="stylesheet" href="../res/js/plugins/layui/css/layui.css" media="all">
+
+
+    <style>
+        .layui-form-item {
+            margin-bottom: 10px
+        }
+
+        .layui-form-pane .layui-form-label {
+            width: 90px
+        }
+
+        .layui-form-pane .layui-input-block {
+            margin-left: 100px;
+        }
+
+        .widget {
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+
+<form class="layui-form" id="data_form" action="../boss/crm/save_year_plan" method="post">
+    <div style="padding:20px">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">业务年度</label>
+                <div class="layui-input-inline" style="max-width:190px">
+                    <select name="planYear" id="planYear">
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">预计咨询量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="planConsultNumber" class="layui-input" id="planConsultNumber"
+                           lay-verify="required|number">
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">计划招生量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="planRecuitNumber" class="layui-input" id="planRecuitNumber"
+                           lay-verify="required|number">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">说明</label>
+                <div class="layui-input-inline">
+                    <textarea rows="6" style="width:510px;padding:10px;" name="remark"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-inline">
+                    <button class="layui-btn" lay-submit="" lay-filter="btn_save">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+<div style="margin-left:120px; border:#b2adad  dashed 1px;padding:10px;width:510px">
+    历史数据：
+    <select name="oldData" id="oldData" onchange="loadOldYearData(this.value)">
+
+    </select>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget style1 navy-bg">
+
+                <h2 class="font-bold" id="consultInfo"></h2>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget style1 yellow-bg">
+                <h2 class="font-bold" id="recruitInfo"></h2>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../res/js/plugins/layui/layui.js" charset="utf-8"></script>
+<script src="../res/js/jquery.min.js" charset="utf-8"></script>
+<script src="../res/js/jquery.form.js" charset="utf-8"></script>
+
+
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form()
+            , layer = layui.layer;
+
+        //监听提交
+        form.on('submit(btn_save)', function (data) {
+            $("#data_form").ajaxSubmit({
+                beforeSend: function () {
+                    $("button[lay-filter='btn_save']").addClass("layui-btn-disabled");
+                    $("button[lay-filter='btn_save']").text("保存中...");
+                }, success: function () {
+                    $("button[lay-filter='btn_save']").removeClass("layui-btn-disabled");
+                    $("button[lay-filter='btn_save']").text("立即提交");
+                    var l1 = layer.confirm('添加成功，是否继续添加', {
+                        btn: ['继续添加', '不添加'] //可以无限个按钮
+                    }, function (index, layero) {
+                        $("#stu_form").trigger("reset");
+                        layer.close(l1);
+                    }, function (index) {
+                        parent.closeAdd();
+                    });
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var jsonMsg = JSON.parse(XMLHttpRequest.responseText);
+                    layer.open({
+                        type: 0
+                        , area: '300px'
+                        , id: 'LAY_demo40' //防止重复弹出
+                        , content: jsonMsg.resultMsg
+                        , btn: '朕知道了'
+                        , yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                    $("button[lay-filter='btn_save']").removeClass("layui-btn-disabled");
+                    $("button[lay-filter='btn_save']").text("立即提交");
+                }
+            });
+            return false;
+        });
+
+
+    });
+
+    $(function () {
+        var now = new Date().getFullYear();
+        initYearOption(now + 1, "planYear");
+        initYearOption(now - 1, "oldData");
+        layui.use(['form'], function () {
+            layui.form().render('select');
+        });
+    });
+
+    function initYearOption(selectedYear, inputId) {
+        var options = "";
+        var start = 2013;
+        var end = new Date().getFullYear() + 1;
+        for (var i = end; i >= start; i--) {
+            if (selectedYear && i == selectedYear)
+                options += "<option value='" + i + "' selected>" + i + "年度</option>";
+            else
+                options += "<option value='" + i + "' >" + i + "年度</option>";
+        }
+        $("#" + inputId).html(options);
+    }
+
+    function loadOldYearData(year) {
+        $.ajax({
+            url: "../boss/crm/year_plan_history",
+            data: {"year": year},
+            dataType: "json",
+            success: function (da) {
+                if (da.data) {
+                    $("#consultInfo").text("预计咨询量：" + da.data.planConsultNumber + "，实际：" + da.data.actualConsultNumber);
+                    $("#recruitInfo").text("预计招生量：" + da.data.planRecuitNumber + "，实际：" + da.data.actualRecuitNumber);
+                } else {
+                    $("#consultInfo").text("无数据");
+                    $("#recruitInfo").text("无数据");
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

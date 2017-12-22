@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../res/js/plugins/layer/skin/default/layer.css?0820" rel="stylesheet" media="all">
+
+
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap.css?0820" rel="stylesheet">
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap-ui.css?0820" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="../res/js/plugins/layui/css/layui.css" media="all">
+    <style>
+        .ibox-content {
+            padding: 5px
+        }
+
+        .float-e-margins .btn {
+            margin-bottom: 0px
+        }
+    </style>
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!--搜索栏-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    您在这里可以进行量的访问权限设定，默认情况下，咨询师只能查看自己的量
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>请选择相关业务人员</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" id="table_container">
+                    <table id="consultGrid"></table>
+                    <div id="consultGridPager"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><strong id="s_user_name"></strong>能看哪些人的量</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="layui-form" action="../boss/user/updateConcultViewAuth" id="view_form">
+                        <input type="hidden" name="uuid" id="consultUuid"/>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label" title="看全部量?">看全部量?</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="isViewAll" lay-filter="isViewAll" value="yes" title="可以">
+                                    <input type="radio" name="isViewAll" lay-filter="isViewAll" value="no" title="不行"
+                                           checked>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <div class="layui-form-item" id="div_all_consult_parent">
+                            <label class="layui-form-label">请选择</label>
+                            <div class="layui-input-block" id="div_all_consult">
+
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit="" lay-filter="save_btn">立即保存</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<!-- 自定义js -->
+<script src="../res/js/content.js?v=1.0.0"></script>
+
+<script src="../res/js/plugins/layui/layui.js" charset="utf-8"></script>
+
+<script src="../res/js/jquery.form.js" charset="utf-8"></script>
+
+<!-- jqGrid -->
+<script src="../res/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
+<script src="../res/js/plugins/jqGrid2/js/jquery.jqGrid.min.js?0820"></script>
+
+
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+        $("#consultGrid").jqGrid({
+            url: '../boss/user/loadUserByRole?roleCodes=1012!1014!1001!1003',
+            datatype: "json",
+            jsonReader: {
+                root: "data.rows",
+                total: "data.total",
+                records: "data.records"
+            },
+            colModel: [
+                {name: 'uuid', hidden: true},
+                {label: '姓名', name: 'userName'},
+                {label: '角色', name: 'roleNames'}
+            ],
+            height: 400,
+            rowNum: 10,
+            autowidth: true,
+            pager: "#consultGridPager",
+            onSelectRow: function (rowId, e) {
+                var grid = $(this);
+                var rowData = grid.jqGrid("getRowData", rowId);
+                $("#s_user_name").text("【" + rowData.userName + "】");
+                $("#consultUuid").val(rowData.uuid);
+            }
+        });
+        $(window).resize(function () {
+            $("#consultGrid").setGridWidth($("#table_container").width() - 10);
+        });
+    });
+
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form()
+            , layer = layui.layer;
+        //监听提交
+        form.on('submit(save_btn)', function (data) {
+            var selectedId = $("#consultGrid").jqGrid("getGridParam", "selrow");
+            if (!selectedId) {
+                layer.alert("请选择需要操作的咨询师");
+                return false;
+            }
+
+
+            if (data.field.isViewAll == "no" && !data.field.consultIds) {
+                layer.confirm('您还没有选择任何人？', {
+                    btn: ['我就不选', '取消再来'], //按钮
+                    shade: true //不显示遮罩
+                }, function (index) {
+                    layer.close(index);
+                    submitForm();
+                    return false;
+                });
+            } else
+                submitForm();
+            return false;
+        });
+
+        $.ajax({
+            url: "../boss/user/loadUserByRolePage?roleCodes=1012!1001",
+            success: function (da) {
+                $("#div_all_consult").html(da);
+                form.render("checkbox");
+            }
+        });
+
+        form.on('radio(isViewAll)', function (data) {
+            if (data.value == "yes") {
+                $("#div_all_consult_parent").slideUp();
+            } else {
+                $("#div_all_consult_parent").slideDown();
+            }
+        });
+    });
+
+    function submitForm() {
+        $("#view_form").ajaxSubmit({
+            beforeSend: function () {
+                $("button[lay-filter='save_btn']").addClass("layui-btn-disabled");
+                $("button[lay-filter='save_btn']").text("保存中...");
+
+            }, success: function () {
+                $("button[lay-filter='save_btn']").removeClass("layui-btn-disabled");
+                $("button[lay-filter='save_btn']").text("立即提交");
+
+                layer.open({
+                    title: "提示",
+                    type: 0,
+                    content: '数据保存成功'
+                });
+            }, error: function () {
+                $("button[lay-filter='save_btn']").removeClass("layui-btn-disabled");
+                $("button[lay-filter='save_btn']").text("立即提交");
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

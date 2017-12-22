@@ -1,0 +1,12 @@
+{
+  "resultCode":"10000",
+  "resultMsg":"ok",
+  "data":{
+    "page":1,
+    "total":1,
+    "records":4,
+    "rows":[
+      {"classRoomName":"机6(80%)","class1":"ACCP","assistTeacher1":"吕颖、王新光","cource1":"使用struts2改造易买网","class2":"ACCP","assistTeacher2":"吕颖、王新光","cource2":"使用struts2改造易买网","class3":"ACCP","assistTeacher3":"吕颖、王新光","cource3":"使用struts2改造易买网","class4":"ACCP","assistTeacher4":"吕颖、王新光","cource4":"使用struts2改造易买网","class5":"ACCP","assistTeacher5":"吕颖、王新光","cource5":"使用struts2改造易买网","class6":"ACCP","assistTeacher6":"吕颖、王新光","cource6":"使用struts2改造易买网","class7":"ACCP","assistTeacher7":"吕颖、王新光","cource7":"使用struts2改造易买网","class8":"ACCP","assistTeacher8":"吕颖、王新光","cource8":"使用struts2改造易买网","class9":"ACCP","assistTeacher9":"吕颖、王新光","cource9":"使用struts2改造易买网","class10":"ACCP","assistTeacher10":"吕颖、王新光","cource10":"使用struts2改造易买网","class11":"ACCP","assistTeacher11":"吕颖、王新光","cource11":"使用struts2改造易买网","class12":"ACCP","assistTeacher12":"吕颖、王新光","cource12":"使用struts2改造易买网","class13":"ACCP","assistTeacher13":"吕颖、王新光","cource13":"使用struts2改造易买网","class14":"ACCP","assistTeacher14":"吕颖、王新光","cource14":"使用struts2改造易买网"}
+    ]
+  }
+}

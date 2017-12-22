@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title> 博雅业务支撑系统 - 登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css" rel="stylesheet">
+    <link href="../res/css/login.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+    <style>
+        #log_msg {
+            color: red;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action="../auth/login" id="form_login">
+                <h4 class="no-margins">博雅业务支撑系统</h4>
+                <p class="m-t-md" id="log_msg"></p>
+                <select name="logName" class="form-control  m-b">
+                    <option value="zaixianzixunshi">在线咨询师</option>
+                    <option value="zixunshi">A组咨询师</option>
+                    <option value="teama">A组长</option>
+                    <option value="zhuli">校区助理</option>
+                    <option value="zixunzhuguan">校区咨询主管</option>
+                    <option value="zaix">在线主管</option>
+                    <option value="xiaozhang">校长</option>
+                </select>
+                <input type="password" name="passwd" class="form-control pword m-b" placeholder="密码" value="123456"/>
+                <a href="/x/qywx_login.html">企业微信登录</a>
+                <button class="btn btn-success btn-block" id="btn_login">登录</button>
+            </form>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            &copy; 杭州德博教育咨询有限公司
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/jquery.form.js" charset="utf-8"></script>
+</html>
+<script>
+    $(function () {
+        $("#btn_login").click(function () {
+            var logName = $("select[name='logName']").val();
+            var passwd = $("input[name='passwd']").val();
+            if (logName.length == 0) {
+                $("#log_msg").text("请填写用户名");
+                return false;
+            }
+            if (passwd.length == 0) {
+                $("#log_msg").text("请填写登录密码");
+                return false;
+            }
+            $.ajax({
+                url: "../auth/login",
+                data: $("#form_login").serialize(),
+                dataType: "json",
+                beforeSend: function () {
+                    $("#log_msg").text("登录中...");
+                    $("#btn_login").addClass("disabled");
+                },
+                success: function (da) {
+                    if (da.data) {
+                        $("#log_msg").text("登录成功，马上进入系统...");
+                        location.href = "../index.html";
+                    } else {
+                        $("#log_msg").text("登录失败，可能您记错了用户名或密码");
+                        $("#btn_login").removeClass("disabled");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrow) {
+                    var jsonMsg = JSON.parse(XMLHttpRequest.responseText);
+                    if (jsonMsg) {
+                        confirm("提示：" + jsonMsg.resultMsg);
+                        location.reload();
+                    }
+                }
+            });
+            return false;
+        });
+
+        var code = getQueryString("code");
+        if (code == "notlogin")
+            confirm("您未登录或登录超时，请重新登录");
+    });
+
+    //从地址栏获取参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+</script>

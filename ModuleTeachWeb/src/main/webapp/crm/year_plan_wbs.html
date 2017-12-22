@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap.css?0820" rel="stylesheet">
+    <link href="../res/js/plugins/jqGrid2/css/ui.jqgrid-bootstrap-ui.css?0820" rel="stylesheet">
+
+
+    <link href="../res/js/plugins/layer/skin/default/layer.css?0820" rel="stylesheet" media="all">
+
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <style>
+        .ibox-content {
+            padding: 5px
+        }
+
+        .float-e-margins .btn {
+            margin-bottom: 0px
+        }
+
+        .form-control, .single-line {
+            padding: 0px
+        }
+    </style>
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    <!--搜索栏-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    选择业务年度 : <select id="sel_biz_year" onchange="loadDataByYear(this)">
+
+                </select>
+
+
+                    计划咨询总量：<span id="sp_plan_consult"></span>，计划招生总量:<span id="sp_plan_recruit"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table id="jqGrid"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- jqGrid -->
+<script src="../res/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
+<script src="../res/js/plugins/jqGrid2/js/jquery.jqGrid.min.js?0820"></script>
+
+<!-- layer -->
+<script src="../res/js/plugins/layer/layer.js?0820"></script>
+
+<!-- 自定义js -->
+<script src="../res/js/content.js?v=1.0.0"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        initYearOption();
+
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+
+        $("#jqGrid").jqGrid({
+            url: '../boss/crm/year_plan_wbs_list',
+            datatype: "json",
+            jsonReader: {
+                root: "data.rows"
+            },
+            colModel: [
+                {name: 'uuid', hidden: true, editable: true},
+                {name: 'userid', hidden: true, editable: true},
+                {name: 'planYear', hidden: true, editable: true},
+                {label: '项 目', name: 'consultName'},
+                {label: '预计咨询量', name: 'planConsultSum'},
+                {label: '计划招生', name: 'planRecruitSum'},
+                {label: '预计咨询量', name: 'planConsultM1', editable: false, editrules: {Integer: true}},
+                {label: '计划招生', name: 'planRecruitM1', editable: true},
+                {label: '预计咨询量', name: 'planConsultM2', editable: false},
+                {label: '计划招生', name: 'planRecruitM2', editable: true},
+                {label: '预计咨询量', name: 'planConsultM3', editable: false},
+                {label: '计划招生', name: 'planRecruitM3', editable: true},
+                {label: '预计咨询量', name: 'planConsultM4', editable: false},
+                {label: '计划招生', name: 'planRecruitM4', editable: true},
+                {label: '预计咨询量', name: 'planConsultM5', editable: false},
+                {label: '计划招生', name: 'planRecruitM5', editable: true},
+                {label: '预计咨询量', name: 'planConsultM6', editable: false},
+                {label: '计划招生', name: 'planRecruitM6', editable: true},
+                {label: '预计咨询量', name: 'planConsultM7', editable: false},
+                {label: '计划招生', name: 'planRecruitM7', editable: true},
+                {label: '预计咨询量', name: 'planConsultM8', editable: false},
+                {label: '计划招生', name: 'planRecruitM8', editable: true},
+                {label: '预计咨询量', name: 'planConsultM9', editable: false},
+                {label: '计划招生', name: 'planRecruitM9', editable: true},
+                {label: '预计咨询量', name: 'planConsultM10', editable: false},
+                {label: '计划招生', name: 'planRecruitM10', editable: true},
+                {label: '预计咨询量', name: 'planConsultM11', editable: false},
+                {label: '计划招生', name: 'planRecruitM11', editable: true},
+                {label: '预计咨询量', name: 'planConsultM12', editable: false},
+                {label: '计划招生', name: 'planRecruitM12', editable: true}
+
+            ],
+            viewrecords: true,
+            height: 400,
+            rowNum: 10,
+            autowidth: true,
+            onSelectRow: editRow,
+            pager: "#jqGridPager",
+            loadComplete: function (xrq) {
+                var postData = $("#jqGrid").jqGrid('getGridParam', 'postData');
+                var params = {"pageSingle": "true"};
+                $.extend(postData, params);
+                $.ajax({
+                    url: "../boss/crm/year_plan_wbs_list",
+                    data: postData,
+                    success: function (da) {
+                        getPagingation(da.data, "jqGridPager");
+                        postData.pageSingle = undefined;
+                    }
+                });
+            }
+        });
+        $(window).resize(function () {
+            $("#jqGrid").setGridWidth($(".ibox-content").width());
+        });
+
+        jQuery("#jqGrid").jqGrid('setGroupHeaders', {
+            useColSpanStyle: true,
+            groupHeaders: [
+                {startColumnName: 'planConsultSum', numberOfColumns: 2, titleText: '<em>合计</em>'},
+                {startColumnName: 'planConsultM1', numberOfColumns: 2, titleText: '<em>1月</em>'},
+                {startColumnName: 'planConsultM2', numberOfColumns: 2, titleText: '<em>2月</em>'},
+                {startColumnName: 'planConsultM3', numberOfColumns: 2, titleText: '<em>3月</em>'},
+                {startColumnName: 'planConsultM4', numberOfColumns: 2, titleText: '<em>4月</em>'},
+                {startColumnName: 'planConsultM5', numberOfColumns: 2, titleText: '<em>5月</em>'},
+                {startColumnName: 'planConsultM6', numberOfColumns: 2, titleText: '<em>6月</em>'},
+                {startColumnName: 'planConsultM7', numberOfColumns: 2, titleText: '<em>7月</em>'},
+                {startColumnName: 'planConsultM8', numberOfColumns: 2, titleText: '<em>8月</em>'},
+                {startColumnName: 'planConsultM9', numberOfColumns: 2, titleText: '<em>9月</em>'},
+                {startColumnName: 'planConsultM10', numberOfColumns: 2, titleText: '<em>10月</em>'},
+                {startColumnName: 'planConsultM11', numberOfColumns: 2, titleText: '<em>11月</em>'},
+                {startColumnName: 'planConsultM12', numberOfColumns: 2, titleText: '<em>12月</em>'}
+            ]
+        });
+    });
+
+    var lastSelection;
+    function editRow(id) {
+        if (id && id !== lastSelection) {
+            saveRows(lastSelection);
+            var grid = $("#jqGrid");
+            // grid.jqGrid('restoreRow',lastSelection);
+            grid.jqGrid('restoreRow', lastSelection);
+            var rowData = grid.jqGrid("getRowData", id);
+            editparameters = {
+                "keys": true,
+                "oneditfunc": null,
+                "successfunc": null,
+                "url": "../boss/crm/plan_wbs_update_row",
+                "extraparam": {"planConsultSum": rowData.planConsultSum, "planRecruitSum": rowData.planRecruitSum},
+                "aftersavefunc": function (rowid, response, rowData) {
+                    $("#jqGrid").trigger("reloadGrid");
+                },
+                "errorfunc": null,
+                "afterrestorefunc": null,
+                "restoreAfterError": true,
+                "mtype": "POST"
+            };
+            grid.jqGrid('editRow', id, editparameters);
+            lastSelection = id;
+        }
+    }
+
+
+    function saveRows(rowid) {
+        var grid = $("#jqGrid");
+        grid.jqGrid('saveRow', rowid);
+    }
+
+    function parseInteger(da) {
+        if (da)
+            return parseInt(da);
+        else
+            return 0;
+    }
+
+    function closeAdd() {
+        layer.close(addWindow);
+        $("#jqGrid").trigger("reloadGrid");
+    }
+
+
+    function initYearOption() {
+        $.ajax({
+            url: "../boss/crm/load_all_plan_years",
+            success: function (da) {
+                var options = "";
+                $(da.data).each(function () {
+                    options += "<option value='" + this.planYear + "' planConsultNumber='" + this.planConsultNumber + "'planRecuitNumber='"
+                        + this.planRecuitNumber + "' >" + this.planYear + "</option>";
+                });
+
+                $("#sel_biz_year").html(options);
+            }
+        });
+    }
+    function loadDataByYear(inp) {
+        var year = $(inp).val();
+        var planConsultNumber = $(inp).find("option:selected").attr("planConsultNumber");
+        var planRecuitNumber = $(inp).find("option:selected").attr("planRecuitNumber");
+        $("#sp_plan_consult").text(planConsultNumber);
+        $("#sp_plan_recruit").text(planRecuitNumber);
+
+        $("#jqGrid").jqGrid('setGridParam', {
+            postData: {'year': year},
+        }).trigger("reloadGrid");
+    }
+
+    function goPage(pageNo) {
+        var postData = $("#jqGrid").jqGrid('getGridParam', 'postData');
+        var params = {"pageSingle": ""};
+        var _postData = $.extend(postData, params);
+        $("#jqGrid").jqGrid('setGridParam', {
+            postData: _postData, //发送数据,
+            page: pageNo
+        }).trigger("reloadGrid"); //重新载入
+    }
+</script>
+
+</body>
+</html>
