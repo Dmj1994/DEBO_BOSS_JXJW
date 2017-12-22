@@ -1,0 +1,15 @@
+{
+  "resultCode":"10000",
+  "resultMsg":"ok",
+  "data":{
+    "page":1,
+    "total":1,
+    "records":4,
+    "rows":[
+      {"uuid":"101121","stageName":"S1","productName":"ACCP","totalCources":256,"fee":"12000.00","remark":"","dataOrder":0},
+      {"uuid":"101122","stageName":"S2","productName":"ACCP","totalCources":350,"fee":"12000.00","remark":"","dataOrder":0},
+      {"uuid":"101123","stageName":"Y2","productName":"ACCP","totalCources":214,"fee":"12000.00","remark":"","dataOrder":0},
+      {"uuid":"101124","stageName":"U1","productName":"学士后-JAVA","totalCources":180,"fee":"12000.00","remark":"","dataOrder":0}
+    ]
+  }
+}
