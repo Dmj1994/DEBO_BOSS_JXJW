@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title> - 登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css" rel="stylesheet">
+    <link href="../res/css/login.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+    <style>
+        #log_msg {
+            color: red;
+            font-weight: bold
+        }
+
+        .col-sm-12 {
+            width: auto
+        }
+    </style>
+</head>
+
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action="../auth/login" id="form_login">
+                <h4 class="no-margins">德博业务支撑系统</h4>
+                <p class="m-t-md" id="log_msg"></p>
+
+                <div id="wxQRCode" style="color:#2A2E36;font-size:16px;padding:10px 0px">
+                    系统没有您企业微信的信息，请在移动端安装企业微信并通知管理员绑定
+                </div>
+                <a href="/x/login.html">暂时不绑，使用账号登录</a>
+            </form>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            &copy; 杭州德博教育咨询有限公司
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/jquery.form.js" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>博雅BOSS</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="res/img/favicon.ico">
+    <link href="res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="res/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="res/css/animate.css" rel="stylesheet">
+    <link href="res/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="res/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <style>
+        .bread_main_nav {
+            width: 240px;
+            padding-top: 15px;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .userinfo {
+        }
+
+        .navbar-header {
+            width: 45%
+        }
+
+        .big-white {
+            color: white;
+            text-weight: bold;
+        }
+
+        num {
+            margin-top: 9px;
+            padding: 0px 3px;
+            display: inline;
+            font-weight: bold;
+            font-size: 75%;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs" style="font-size:20px;">
+                                        <i class="fa fa-area-chart"></i>
+                                        <strong class="font-bold">博雅</strong>
+                                    </span>
+                                </span>
+                        </a>
+                    </div>
+                    <div class="logo-element">博雅</div>
+                </li>
+
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                    <span class="ng-scope">教务</span>
+                </li>
+
+                <li class="active">
+                    <a href="#">
+                    <i class="fa fa fa-bar-chart-o"></i>
+                    <span class="nav-label">基础数据</span>
+                    <span class="fa arrow"></span>
+                </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_basic/class_room_list.jsp" path="教务_基础管理_教室管理">教室管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_basic/product_list.jsp" path="教务_基础管理_产品管理">产品管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_basic/stage_list.jsp" path="教务_基础管理_阶段管理">阶段管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_basic/course_list.jsp" path="教务_基础管理_课程管理">课程管理</a>
+                        </li>
+                    </ul>
+                    <a href="#">
+                        <i class="fa fa fa-bar-chart-o"></i>
+                        <span class="nav-label">业务数据</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_biz/attendance_list.jsp" path="教务_业务数据_机房管理">考勤管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_basic/product_list.jsp" path="教务_业务数据_产品管理">学员档案</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="teach/jw_biz/cource_schedule.jsp" path="教务_业务数据_课程表">课程表</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                    <span class="ng-scope">教学</span>
+                </li>
+
+                <li>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="crm/year_plan_list.html">考勤管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="crm/student_view_auth_setting.html">作业管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="crm/student_view_auth_setting.html">考试管理</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+
+
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#">折叠</a>
+                    <div class="bread_main_nav">
+
+                    </div>
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>当前用户： <strong id="userinfo"></strong></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle " href="/auth/logout" title="退出登录">
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+            <iframe id="J_iframe" width="100%" height="100%" src="desktop.jsp?v=4.0" frameborder="0"
+                    data-id="index.html" seamless></iframe>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+</div>
+
+<!-- 全局js -->
+<script src="res/js/jquery.min.js?v=2.1.4"></script>
+<script src="res/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="res/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="res/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="res/js/plugins/layer/layer.js"></script>
+
+<!-- 自定义js -->
+<script src="res/js/hAdmin.js?v=4.1.0"></script>
+<script type="text/javascript" src="res/js/index.js"></script>
+
+<!-- 第三方插件 -->
+<script src="res/js/plugins/pace/pace.min.js"></script>
+
+<!-- websocket -->
+<script src="res/js/plugins/websocket/sockjs.min.js"></script>
+<script src="res/js/plugins/websocket/stomp.min.js"></script>
+
+
+<!-- Toastr script -->
+<script src="res/js/plugins/toastr/toastr.min.js"></script>
+
+<script>
+    toastr.options = {
+        closeButton: true,
+        progressBar: false,
+        timeOut: "0",
+        positionClass: "toast-top-right"
+    };
+    leftMenu();
+</script>
+
+</body>
+
+</html>

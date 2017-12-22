@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title> - 登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../res/css/animate.css" rel="stylesheet">
+    <link href="../res/css/style.css" rel="stylesheet">
+    <link href="../res/css/login.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+    <style>
+        #log_msg {
+            color: red;
+            font-weight: bold
+        }
+
+        .col-sm-12 {
+            width: auto
+        }
+    </style>
+</head>
+
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action="../auth/login" id="form_login">
+                <h4 class="no-margins">博雅业务支撑系统</h4>
+                <p class="m-t-md" id="log_msg"></p>
+
+                <div id="wxQRCode">
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            &copy; 杭州德博教育咨询有限公司
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- 全局js -->
+<script src="../res/js/jquery.min.js?v=2.1.4"></script>
+<script src="../res/js/jquery.form.js" charset="utf-8"></script>
+<script src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js" charset="utf-8"></script>
+
+</html>
+<script>
+
+    window.WwLogin({
+        "id": "wxQRCode",
+        "appid": "ww7ea1d21b07d8f57a",
+        "agentid": "1000002",
+        "redirect_uri": "http://crm.hzbenet.com:8848/qywx/getUser",
+        "state": Math.random()
+    });
+
+
+    $(function () {
+        var code = getQueryString("code");
+        if (code == "notlogin")
+            confirm("您未登录或登录超时，请重新登录");
+    });
+    //从地址栏获取参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)return unescape(r[2]);
+        return null;
+    }
+
+</script>
