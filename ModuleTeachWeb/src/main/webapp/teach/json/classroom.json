@@ -1,0 +1,15 @@
+{
+  "resultCode":"10000",
+  "resultMsg":"ok",
+  "data":{
+    "page":1,
+    "total":1,
+    "records":4,
+    "rows":[
+      {"uuid":"101121","classRoomName":"JST21","seatNums":30,"useFor":"常规教学","school":"拱北校区","status":"使用中"},
+      {"uuid":"101122","classRoomName":"JST25","seatNums":28,"useFor":"常规教学","school":"拱北校区","status":"空闲"},
+      {"uuid":"101123","classRoomName":"JST28","seatNums":30,"useFor":"会议","school":"武林门校区","status":"维护中"},
+      {"uuid":"101124","classRoomName":"JST45","seatNums":30,"useFor":"常规教学","school":"拱北校区","status":"上课中"}
+    ]
+  }
+}

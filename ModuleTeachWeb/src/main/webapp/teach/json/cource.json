@@ -1,0 +1,15 @@
+{
+  "resultCode":"10000",
+  "resultMsg":"ok",
+  "data":{
+    "page":1,
+    "total":1,
+    "records":4,
+    "rows":[
+      {"uuid":"101121","courceName":"JAVA 面向对象","stageName":"S1","productName":"ACCP","charpters":256,"price":"12000.00","remark":"","dataOrder":0},
+      {"uuid":"101122","courceName":"数据库","stageName":"S2","productName":"ACCP","charpters":350,"price":"12000.00","remark":"","dataOrder":0},
+      {"uuid":"101123","courceName":"Spring 框架","stageName":"Y2","productName":"ACCP","charpters":214,"price":"12000.00","remark":"","dataOrder":0},
+      {"uuid":"101124","courceName":"一切皆对象","stageName":"U1","productName":"学士后-JAVA","charpters":180,"price":"12000.00","remark":"","dataOrder":0}
+    ]
+  }
+}
