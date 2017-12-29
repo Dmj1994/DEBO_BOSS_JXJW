@@ -13,11 +13,12 @@
     <meta name="description" content="">
 
     <link href="/res/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
+    <link href="/res/js/plugins/layer/skin/default/layer.css?0820" rel="stylesheet" media="all">
     <link href="/res/css/animate.css" rel="stylesheet">
     <link href="/res/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="/res/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/res/js/plugins/fullcalendar/fullcalendar.min.css?v=3.3.6" rel="stylesheet">
+
     <style>
         .folder-list li a{display: inline}
         .folder-list li{height:30px;line-height: 30px}
@@ -36,25 +37,18 @@
                 <div class="ibox-content">
                     <ul class="folder-list m-b-md" style="padding: 0">
                         <li>
-                           <i class="fa fa-inbox "></i> Step 1:  <a href="mailbox.html"> 选择班级 </a><span class="label label-warning pull-right">JST1班</span>
+                           <i class="fa fa-inbox "></i> Step 1:  <a href="javascript:;" onclick="chooseClass()"> 选择班级 </a><span class="label label-warning pull-right">JST1班</span>
                         </li>
                         <li>
-                            <i class="fa fa-inbox "></i> Step 2:  <a href="mailbox.html"> 选择校区 </a><span class="label label-warning pull-right">武林门校区</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-inbox "></i> Step 3:  <a href="mailbox.html"> 选择机房 </a><span class="label label-warning pull-right">机6</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-inbox "></i> Step 4:  <a href="mailbox.html"> 选择产品 </a><span class="label label-warning pull-right">ACCP</span>
+                            <i class="fa fa-inbox "></i> Step 2:  <a href="javascript:;" onclick="chooseClassRoom()"> 选择机房 </a><span class="label label-warning pull-right">机6</span>
                         </li>
                     </ul>
-
                 </div>
             </div>
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div id='external-events'>
-                        <p>请选择课程内容</p>
+                        <p>step 3:请选择课程内容</p>
                         <div class='external-event navy-bg' courseType="K" courseId="10101">S1</div>
                         <div class='external-event navy-bg'>S2</div>
                         <div class='external-event navy-bg'>Y2</div>
@@ -96,6 +90,8 @@
 <script src="/res/js/plugins/fullcalendar/moment.min.js"></script>
 <script src="/res/js/plugins/fullcalendar/fullcalendar.min.js"></script>
 <script src="/res/js/plugins/fullcalendar/zh-cn.js"></script>
+
+<script src="/res/js/plugins/layer/layer.js?0820"></script>
 <script>
 
         $(document).ready(function() {
@@ -146,6 +142,30 @@
             });
         });
 
+
+        var windowObj;
+        function chooseClass(){
+            windowObj = layer.open({
+                title: "选择班级",
+                type: 2,
+                content: "/teach/jw_biz/cource_choose_class.jsp" ,
+                maxmin: true,
+                area:['600px','500px']
+            });
+        }
+
+        function chooseClassRoom(){
+            windowObj = layer.open({
+                title: "选择机房",
+                type: 2,
+                content: "/teach/jw_biz/cource_choose_class_room.jsp" ,
+                maxmin: true,
+                area:['600px','500px']
+            });
+        }
+        function closeWindow(){
+            layer.closeAll();
+        }
 </script>
 </body>
 </html>
