@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>业务支撑系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="stylesheet" href="/res/sui//css/sm.min.css">
+    <link rel="stylesheet" href="/res/sui//css/sm-extend.min.css">
+	<style>
+	   .seat_cell{
+	       position: relative;
+			display: table-cell;
+			width: 1%;
+			height: 2.5rem;
+			color: #929292;
+			text-align: center;
+			vertical-align: middle;
+	   }
+	   .seat_cell img{
+	      width:100%;
+		  border-radius:0.5em;
+		  padding:3px
+	   }
+	   .seat_cell h4{
+	      padding:0px;
+		  margin:-5px 0px 0px 0px;
+		  color:white
+	   }
+	   .nomal{background-color:	#009100}
+	   .late{background-color:	#BB5E00}
+	   .showoff{background-color:#0066CC}
+	   .shortin{background-color:#8600FF}
+	   .missin{background-color:#FF2D2D}
+	   .showCase{}
+	   .showCase ul{list-style:none}
+       .showCase ul li{float:left;width:18%;color:white;}
+	   .showCase ul li span{padding:0.1em 0.5em;border-radius:0.2em}
+	   .selected{border:red dashed 2px}
+	   </style>
+  </head>
+  <body>
+  
+<div class="page" >
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="/docs-demos/router">
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class='title'>点 名</h1>
+  </header>
+  <div class="content">
+    <div class="content-padded grid-demo">
+			 <div class="row no-gutter">
+				  <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+			</div>
+			
+			<div class="row no-gutter">
+				  <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell missin">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+			</div>
+			
+			
+			<div class="row no-gutter">
+				  <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell shortin">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+			</div>
+			
+			
+			<div class="row no-gutter">
+				  <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+			</div>
+			
+			<div class="row no-gutter">
+				  <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell late">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+			</div>
+			<div class="row no-gutter" >
+				  <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell showoff">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+				  
+				   <div class="col-20" style="text-align:center;padding:4px"> 
+					<div class="seat_cell nomal">
+						<img src="/res/sui/imgs/heads/h1.jpg">
+						<h4>张三丰</h4>
+					</div>
+				  </div>
+			</div>
+			<div class="row no-gutter" style="margin-bottom:4em">	 
+			</div>
+	</div>
+  </div>
+  
+   <nav class="bar bar-tab">
+        <div class="showCase">
+				<ul>
+				    <li><span class="nomal">正常</span></li>
+					<li><span class="late">迟到</span></li>
+					<li><span class="shortin">早退</span></li>
+					<li><span class="missin">旷课</span></li>
+					<li><span class="showoff">请假</span></li>
+				</ul>
+		</div>
+   </nav>
+</div>
+    <script type='text/javascript' src='/res/sui/js/zepto.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/res/sui/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/res/sui/js/sm-extend.min.js' charset='utf-8'></script>
+	<script>
+			var selected ;
+			$(".col-20").on("click",function(){
+			   $(".col-20").removeClass("selected");
+			   $(this).addClass("selected");
+			   selected=$(this).find(".seat_cell");
+			});
+			
+			$(".showCase li").on("click",function(){
+				if(!selected){
+					$.toast("请选择要操作的学员");
+					return;
+				}
+				$(selected).removeClass("nomal late shortin missin showoff");
+				$(selected).addClass($(this).find("span").attr("class"));
+			});
+	</script>
+  </body>
+</html>

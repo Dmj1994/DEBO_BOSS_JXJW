@@ -258,3 +258,11 @@ function rgb2hex(rgb) {
 
     return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
+
+
+function getRandom0to6(){
+    var seed = 0;
+    while((seed=parseInt(Math.random()*10))>6){
+    }
+    return seed;
+}

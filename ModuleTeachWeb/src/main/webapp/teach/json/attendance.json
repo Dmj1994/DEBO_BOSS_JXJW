@@ -6,10 +6,10 @@
     "total":1,
     "records":4,
     "rows":[
-      {"uuid":"101121","className":"JST21","productName":"ACCP","classStuNums":30,"assist":"王洒","attendaceRate":"90%","status":"正常"},
-      {"uuid":"101122","className":"JST25","productName":"ACCP","classStuNums":28,"assist":"陈思思","attendaceRate":"90%","status":"正常"},
-      {"uuid":"101123","className":"JST28","productName":"UI","classStuNums":30,"assist":"黄安娜","attendaceRate":"90%","status":"正常"},
-      {"uuid":"101124","className":"JST45","productName":"Benet","classStuNums":30,"assist":"夏超丹","attendaceRate":"90%","status":"正常"}
+      {"uuid":"101121","className":"JST21","productName":"ACCP","classStuNums":30,"assist":"王洒","attendaceRate":"90%","status":"正常","stage":"Y2-《使用MyBatis改造租房系统》-CH06"},
+      {"uuid":"101122","className":"JST25","productName":"ACCP","classStuNums":28,"assist":"陈思思","attendaceRate":"90%","status":"正常","stage":"Y2-《使用MyBatis改造租房系统》-CH06"},
+      {"uuid":"101123","className":"JST28","productName":"UI","classStuNums":30,"assist":"黄安娜","attendaceRate":"90%","status":"正常","stage":"Y2-《使用MyBatis改造租房系统》-CH06"},
+      {"uuid":"101124","className":"JST45","productName":"Benet","classStuNums":30,"assist":"夏超丹","attendaceRate":"90%","status":"正常","stage":"Y2-《使用MyBatis改造租房系统》-CH06"}
     ]
   }
 }

@@ -145,7 +145,7 @@
                 {label: '班级人数', name: 'classStuNums', width: "80"},
                 {label: '班主任', name: 'assist', width: "85"},
                 {label: '出勤率', name: 'attendaceRate', width: "125"},
-                {label: '当前状态', name: 'status', width: "125"}
+                {label: '当前进度', name: 'stage', width: "125"}
             ],
             viewrecords: true, // show the current page, data rang and total records on the toolbar
             height: 400,
