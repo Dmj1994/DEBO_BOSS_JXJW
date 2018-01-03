@@ -22,10 +22,7 @@
         <jackson.core.version>2.4.2</jackson.core.version>
     </properties>
 
-
     <dependencies>
-
-
         <dependency>
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
