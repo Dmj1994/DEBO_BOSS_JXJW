@@ -7,6 +7,9 @@ public class CharpterVO {
 
     private List<CharpterVO> charpters;
 
+
+
+
     private String charpterName;
 
     public String getCharpterName() {
@@ -22,7 +25,7 @@ public class CharpterVO {
     }
 
     public void setCharpters(List<CharpterVO> charpters) {
-        this.charpters = charpters;
+         this.charpters = charpters;
     }
 
 }
